@@ -27,3 +27,27 @@ app.get("/api/notes", function(req, res) {
     })
 });
 
+
+app.post("/api/notes", function(req, res) {
+    var newNote = JSON.stringify(req.body);
+    notes.push(newNote)
+    fs.writeFile('./db/db.json',`[${notes}]`,"utf-8",function(err){
+        if (err) throw err;
+        return res.json(req.body)
+})
+});
+
+
+
+
+
+
+
+app.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
+
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
