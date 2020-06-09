@@ -44,7 +44,10 @@ app.delete("/api/notes/:id", function(req, res){
         if (err) {
         throw err;
     }
-    
+    let object = JSON.parse(data);
+        for (note in object) {
+        if (object[note].id === target) {
+   
 });
 
 
