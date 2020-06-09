@@ -47,7 +47,15 @@ app.delete("/api/notes/:id", function(req, res){
     let object = JSON.parse(data);
         for (note in object) {
         if (object[note].id === target) {
-   
+    object.splice(note, 1);
+    fs.writeFile("./db/db.json", `[${notes}]`, "utf-8", function(err){
+        if (err) throw err;
+        return;
+    });
+    }
+    };
+        res.end();
+    });
 });
 
 
