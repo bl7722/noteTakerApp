@@ -18,3 +18,12 @@ app.get("/notes", function(req, res) {
   });
   
 
+
+app.get("/api/notes", function(req, res) {
+    fs.readFile('./db/db.json','utf-8',function(err, data){
+        if (err) throw err;
+        console.log(data);
+        return res.json(JSON.parse(data));
+    })
+});
+
