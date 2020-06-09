@@ -9,18 +9,18 @@ app.use(express.static('public'));
 
 var notes = [];
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
   });
   
-app.get("/notes", function(req, res) {
+app.get("/notes", (req, res) => {
    res.sendFile(path.join(__dirname, "./public/notes.html"));
   });
   
 
 
-app.get("/api/notes", function(req, res) {
-    fs.readFile('./db/db.json','utf-8',function(err, data){
+app.get("/api/notes", (req, res) =>{
+    fs.readFile('./db/db.json','utf-8',(err, data)=>{
         if (err) throw err;
         console.log(data);
         return res.json(JSON.parse(data));
@@ -28,19 +28,19 @@ app.get("/api/notes", function(req, res) {
 });
 
 
-app.post("/api/notes", function(req, res) {
+app.post("/api/notes", (req, res) => {
     var newNote = JSON.stringify(req.body);
     notes.push(newNote)
-    fs.writeFile('./db/db.json',`[${notes}]`,"utf-8",function(err){
+    fs.writeFile('./db/db.json',`[${notes}]`,"utf-8",(err) =>{
         if (err) throw err;
         return res.json(req.body)
 })
 });
 
 
-app.delete("/api/notes/:id", function(req, res){
+app.delete("/api/notes/:id", (req, res) =>{
     var target = req.params.id
-        fs.readFile('./db/db.json', 'utf-8', function(err, data){
+        fs.readFile('./db/db.json', 'utf-8', (err, data)=>{
         if (err) {
         throw err;
     }
@@ -48,7 +48,7 @@ app.delete("/api/notes/:id", function(req, res){
         for (note in object) {
         if (object[note].id === target) {
     object.splice(note, 1);
-    fs.writeFile("./db/db.json", `[${notes}]`, "utf-8", function(err){
+    fs.writeFile("./db/db.json", `[${notes}]`, "utf-8", (err) =>{
         if (err) throw err;
         return;
     });
@@ -61,11 +61,11 @@ app.delete("/api/notes/:id", function(req, res){
 
 
 
-app.get("*", function(req, res) {
+app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
     console.log("App listening on PORT " + PORT);
   });
