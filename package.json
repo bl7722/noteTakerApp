@@ -4,7 +4,7 @@
   "description": "This is a noteTakerApp. This app can be used to take, store, and delete notes.",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "i": "^0.3.6",
     "path": "^0.12.7"
   },
